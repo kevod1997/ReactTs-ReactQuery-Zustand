@@ -5,8 +5,12 @@ import { Repository } from './types'
 
 async function fetchRepos(ctx: QueryFunctionContext){
     const [_, githubUser] = ctx.queryKey
-    const {data} = await api.get<Repository>(`/users/${githubUser}/repos`)
+    if(githubUser){
+        const {data} = await api.get<Repository>(`/users/${githubUser}/repos`)
     return data
+    }else{
+        return ("ingresa usuario")
+    }
 }
 
 export function useFetchRepositories(githubUser: string){
